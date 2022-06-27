@@ -1,3 +1,4 @@
+from ParsePageTitles import parse_page_titles
 from api.FetchPage import fetch_page
 from RandomizePages import randomize_pages
 from RankPages import rank_pages
@@ -22,6 +23,7 @@ def main():
             ended = True
             print("Finished in " + str(i) + " iterations")
 
+        pages = parse_page_titles(pages)
         pages = rank_pages(pages)
         pages = randomize_pages(pages)
 
