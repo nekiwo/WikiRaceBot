@@ -6,7 +6,7 @@ def check_page(title):
         "action": "query",
         "format": "json",
         "titles": title,
-        "prop": "extracts"
+        "prop": "revisions"
     }
 
     res = requests.get(url="https://en.wikipedia.org/w/api.php", params=params)
