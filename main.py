@@ -2,6 +2,7 @@ from ParsePageTitles import parse_page_titles
 from api.FetchPage import fetch_page
 from RandomizePages import randomize_pages
 from RankPages import rank_pages
+import sys
 
 
 def main():
@@ -12,18 +13,17 @@ def main():
     print("End Article: " + end_article)
     print("Start")
 
-    ended = False
     current_article = start_article
 
     i = 0
-    while not ended:
+    while True:
         pages = fetch_page(current_article)
         print(current_article)
 
         if pages != 0:
-            if end_article in pages:
-                ended = True
+            if end_article.lower() in [p.lower() for p in pages]:
                 print("Finished in " + str(i) + " iterations")
+                sys.exit()
 
             pages = parse_page_titles(pages)
             pages = rank_pages(pages, end_article)
@@ -33,11 +33,11 @@ def main():
 
             i = i + 1
             if i == 100:
-                ended = True
                 print("Limited iterations reached. Stop.")
+                sys.exit()
         else:
-            ended = True
             print("Can't fetch page. Stop.")
+            sys.exit()
 
 
 if __name__ == "__main__":
